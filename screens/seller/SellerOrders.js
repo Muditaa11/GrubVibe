@@ -14,7 +14,7 @@ const SellerOrders = () => {
         throw new Error('No token found. Please log in again.');
       }
 
-      const response = await fetch('http://10.12.60.237:5000/api/order/seller-orders', {
+      const response = await fetch('http://10.12.34.68:5000/api/order/seller-orders', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

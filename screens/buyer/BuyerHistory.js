@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const BuyerHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -14,7 +16,7 @@ const BuyerHistory = () => {
         throw new Error('No token found. Please log in again.');
       }
 
-      const response = await fetch('http://10.12.60.237:5000/api/order/history', {
+      const response = await fetch('http://10.12.34.68:5000/api/order/history', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,9 +40,10 @@ const BuyerHistory = () => {
     }
   };
 
-  useEffect(() => {
+  useFocusEffect( useCallback(() => {
     fetchHistory();
-  }, []);
+  }, [])
+);
 
   const renderOrderItem = ({ item }) => (
     <View style={styles.orderCard}>

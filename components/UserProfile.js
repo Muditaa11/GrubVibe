@@ -20,7 +20,7 @@ const UserProfile = () => {
         }
 
         // Fetch user details from the backend
-        const response = await fetch('http://10.12.60.237:5000/api/user', {
+        const response = await fetch('http://10.12.34.68:5000/api/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

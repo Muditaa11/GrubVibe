@@ -11,7 +11,7 @@ const BuyerHome = () => {
   const fetchItems = async (searchQuery = '', locationQuery = '') => {
     try {
       setLoading(true);
-      let url = 'http://10.12.60.237:5000/api/items';
+      let url = 'http://10.12.34.68:5000/api/items';
       const params = [];
       if (searchQuery) params.push(`name=${searchQuery}`);
       if (locationQuery) params.push(`location=${locationQuery}`);
@@ -44,7 +44,7 @@ const BuyerHome = () => {
         return;
       }
 
-      const response = await fetch('http://10.12.60.237:5000/api/cart/add', {
+      const response = await fetch('http://10.12.34.68:5000/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

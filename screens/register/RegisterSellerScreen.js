@@ -39,7 +39,7 @@ const SellerRegisterScreen = () => {
       // Add role manually here if your backend expects it
       const dataToSend = { ...form, role: 'seller' };
   
-      await axios.post('http://10.12.60.237:5000/api/register', dataToSend);
+      await axios.post('http://10.12.34.68:5000/api/register', dataToSend);
   
       // Redirect to login screen on success
       navigation.navigate('Login');

@@ -22,7 +22,7 @@ const SellerPostOrders = () => {
         return;
       }
 
-      const response = await fetch('http://10.12.60.237:5000/api/items', {
+      const response = await fetch('http://10.12.34.68:5000/api/items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

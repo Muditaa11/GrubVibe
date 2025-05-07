@@ -20,7 +20,7 @@ const BuyerCart = () => {
         }
 
         // Fetch cart
-        const cartResponse = await fetch('http://10.12.60.237:5000/api/cart', {
+        const cartResponse = await fetch('http://10.12.34.68:5000/api/cart', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const handleEmptyCart = async () => {
       throw new Error('No token found. Please log in again.');
     }
 
-    const response = await fetch('http://10.12.60.237:5000/api/cart/empty', {
+    const response = await fetch('http://10.12.34.68:5000/api/cart/empty', {
       method: 'Delete',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const handleCheckout = async () => {
     }
     console.log('Sending checkout with cartId:', cart._id)
 
-    const response = await fetch('http://10.12.60.237:5000/api/cart/checkout', {
+    const response = await fetch('http://10.12.34.68:5000/api/cart/checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
