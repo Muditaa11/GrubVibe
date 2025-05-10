@@ -37,6 +37,8 @@ const LoginScreen = () => {
       // Use 'jwtToken' as the key to save the token
       await AsyncStorage.setItem('jwtToken', token);
       await AsyncStorage.setItem('role', user.role);
+      await AsyncStorage.setItem('userId', user.id);
+
 
       if (user.role === 'buyer') navigation.navigate(BuyerTabs);
       else if (user.role === 'seller') navigation.navigate(SellerTabs);

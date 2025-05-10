@@ -6,13 +6,17 @@ const SellerOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sellerId, setSellerId] = useState(null);
 
   const fetchOrders = async () => {
     try {
       const token = await AsyncStorage.getItem('jwtToken');
-      if (!token) {
-        throw new Error('No token found. Please log in again.');
+      const userId = await AsyncStorage.getItem('userId'); // 👈 Fetch seller's ID
+      if (!token || !userId) {
+        throw new Error('Missing token or user ID. Please log in again.');
       }
+
+      setSellerId(userId); // 👈 Store seller ID in state
 
       const response = await fetch('http://10.12.34.68:5000/api/order/seller-orders', {
         method: 'GET',
@@ -42,15 +46,18 @@ const SellerOrders = () => {
   }, []);
 
   const renderOrderItem = ({ item }) => {
-    // Filter items belonging to this seller
-    const sellerItems = item.items.filter(orderItem => orderItem.itemId.sellerId.toString() === item.buyerId.toString());
+    // ✅ Filter items that belong to the current seller
+    const sellerItems = item.items.filter(orderItem =>
+      orderItem?.itemId?.sellerId?.toString() === sellerId
+    );
+
     if (sellerItems.length === 0) return null;
 
     return (
       <View style={styles.orderCard}>
         <Text style={styles.orderDate}>Ordered on: {new Date(item.createdAt).toLocaleDateString()}</Text>
         <Text style={styles.orderStatus}>Status: {item.status}</Text>
-        <Text style={styles.buyerInfo}>Buyer: {item.buyerId.name} ({item.buyerId.email})</Text>
+        {/* <Text style={styles.buyerInfo}>Buyer: {item.buyerId.name} ({item.buyerId.email})</Text> */}
         <FlatList
           data={sellerItems}
           renderItem={({ item: orderItem }) => (
@@ -63,7 +70,11 @@ const SellerOrders = () => {
           )}
           keyExtractor={(orderItem) => orderItem._id}
         />
-        <Text style={styles.totalPrice}>Total (for your items): ${(sellerItems.reduce((sum, orderItem) => sum + (orderItem.itemPrice * orderItem.quantity), 0)).toFixed(2)}</Text>
+        <Text style={styles.totalPrice}>
+          Total (for your items): ${(
+            sellerItems.reduce((sum, orderItem) => sum + (orderItem.itemPrice * orderItem.quantity), 0)
+          ).toFixed(2)}
+        </Text>
       </View>
     );
   };
